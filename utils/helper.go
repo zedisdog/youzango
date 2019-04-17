@@ -1,4 +1,4 @@
-package youzango
+package utils
 
 import (
     "errors"

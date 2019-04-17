@@ -2,7 +2,7 @@ package api
 
 import (
     "github.com/uniplaces/carbon"
-    "youzango"
+    "youzango/utils"
 )
 
 func NewTradeMethod(tid string, accessToken string) *Method {
@@ -11,7 +11,7 @@ func NewTradeMethod(tid string, accessToken string) *Method {
     }{
         Tid: tid,
     }
-    jsonData, err := youzango.BuildJson(data)
+    jsonData, err := utils.BuildJson(data)
     if err != nil {
         panic(err)
     }
@@ -237,7 +237,7 @@ type OrderInfo struct {
 }
 
 func (o *OrderInfo) ToCarbon(prop string) (*carbon.Carbon, error) {
-    return youzango.GetCarbon(o, prop)
+    return utils.GetCarbon(o, prop)
 }
 
 // OrderTags
@@ -329,7 +329,7 @@ type OrderExtra struct {
 }
 
 func (o *OrderExtra) ToCarbon(prop string) (*carbon.Carbon, error) {
-    return youzango.GetCarbon(o, prop)
+    return utils.GetCarbon(o, prop)
 }
 
 type SourceInfo struct {
@@ -411,7 +411,7 @@ type PayInfo struct {
 }
 
 func (p *PayInfo) GetPrice(prop string) (int, error) {
-    return youzango.GetPrice(p, prop)
+    return utils.GetPrice(p, prop)
 }
 
 type PhasePayment struct {
@@ -430,11 +430,11 @@ type PhasePayment struct {
 }
 
 func (p *PhasePayment) GetPrice(prop string) (int, error) {
-    return youzango.GetPrice(p, prop)
+    return utils.GetPrice(p, prop)
 }
 
 func (p *PhasePayment) ToCarbon(prop string) (*carbon.Carbon, error) {
-    return youzango.GetCarbon(p, prop)
+    return utils.GetCarbon(p, prop)
 }
 
 type RemarkInfo struct {
@@ -478,7 +478,7 @@ type AddressInfo struct {
 }
 
 func (a *AddressInfo) ToCarbon(prop string) (*carbon.Carbon, error) {
-    return youzango.GetCarbon(a, prop)
+    return utils.GetCarbon(a, prop)
 }
 
 type Order struct {
@@ -560,7 +560,7 @@ type Order struct {
 }
 
 func (o *Order) ToCarbon(prop string) (*carbon.Carbon, error) {
-    return youzango.GetCarbon(o, prop)
+    return utils.GetCarbon(o, prop)
 }
 
 type ChildInfo struct {

@@ -1,5 +1,7 @@
 package youzango
 
+import "youzango/utils"
+
 type CanBuildJson interface {
     ToJson() ([]byte, error)
 }
@@ -19,7 +21,7 @@ type TokenRequest struct {
 }
 
 func (t *TokenRequest) ToJson() ([]byte, error) {
-    return BuildJson(t)
+    return utils.BuildJson(t)
 }
 
 func NewTokenRequest(clientId string, clientSecret string, code string, redirectUri string) *TokenRequest {

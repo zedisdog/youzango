@@ -4,7 +4,9 @@ import (
     "bytes"
     "github.com/pasztorpisti/qs"
     "io/ioutil"
+    "log"
     "net/http"
+    "youzango/utils"
 )
 
 const tokenApi string = "https://open.youzanyun.com/auth/token"
@@ -31,10 +33,13 @@ func httpPost(url string, jsonData []byte) ([]byte, error) {
     return result, nil
 }
 
-func request(baseUrl string, method string, version string, query map[string]string, jsonData []byte, response interface{}) error {
+func request(baseUrl string, method string, version string, query map[string]string, jsonData []byte, response interface{}, isLog bool) error {
     var rsp []byte
     var err error
     if baseUrl == tokenApi {
+        if isLog {
+            log.Println("+request url:", baseUrl, "data:", jsonData)
+        }
         rsp, err = httpPost(baseUrl, jsonData)
         if err != nil {
             return err
@@ -46,13 +51,19 @@ func request(baseUrl string, method string, version string, query map[string]str
             return err
         }
 
+        if isLog {
+            log.Println("+request url:", url, "data:", jsonData)
+        }
         rsp, err = httpPost(url, jsonData)
         if err != nil {
             return err
         }
     }
 
-    err = ParseJson(rsp, response)
+    if isLog {
+        log.Println("-response", string(rsp))
+    }
+    err = utils.ParseJson(rsp, response)
     return err
 }
 
