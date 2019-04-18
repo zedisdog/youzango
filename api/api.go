@@ -30,6 +30,6 @@ type BaseResponse struct {
     // 错误消息
     Message string `json:"message"`
     // 是否成功
-    Success string `json:"success"`
+    Success bool `json:"success"`
     Data interface{}
 }

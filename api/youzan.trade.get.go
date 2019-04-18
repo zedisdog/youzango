@@ -5,13 +5,8 @@ import (
     "youzango/utils"
 )
 
-func NewTradeMethod(tid string, accessToken string) *Method {
-    data := struct {
-        Tid string `json:"tid"`
-    }{
-        Tid: tid,
-    }
-    jsonData, err := utils.BuildJson(data)
+func NewTradeMethod(request *TradeRequest, accessToken string) *Method {
+    jsonData, err := utils.BuildJson(request)
     if err != nil {
         panic(err)
     }
@@ -20,6 +15,10 @@ func NewTradeMethod(tid string, accessToken string) *Method {
     method.Version = "4.0.0"
     method.JsonData = jsonData
     return method
+}
+
+type TradeRequest struct {
+    Tid string `json:"tid"`
 }
 
 type TradeResponse struct {
