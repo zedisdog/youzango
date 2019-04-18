@@ -74,7 +74,7 @@ type TokenResponse struct {
 
 type Token struct {
     AccessToken string `json:"access_token"`
-    ExpiresIn string `json:"expires_in"`
+    Expires string `json:"expires"`
     Scope string `json:"scope"`
     RefreshToken string `json:"refresh_token"`
 }
