@@ -68,7 +68,7 @@ func (c *Client) RefreshToken(params map[string]string) (*gjson.Result, error) {
 }
 
 func (c *Client) Trade(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewTradeRequest(request, c.accessToken))
+    result, err := c.requestApi(newTradeRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -78,7 +78,7 @@ func (c *Client) Trade(request map[string]interface{}) (*gjson.Result, error) {
 }
 
 func (c *Client) DecreasePoint(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewPointDecreaseRequest(request, c.accessToken))
+    result, err := c.requestApi(newPointDecreaseRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -88,7 +88,7 @@ func (c *Client) DecreasePoint(request map[string]interface{}) (*gjson.Result, e
 }
 
 func (c *Client) SalesmanAccounts(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewSalesmanAccountsRequest(request, c.accessToken))
+    result, err := c.requestApi(newSalesmanAccountsRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -98,7 +98,17 @@ func (c *Client) SalesmanAccounts(request map[string]interface{}) (*gjson.Result
 }
 
 func (c *Client) GetOpenIdByMobile(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewGetOpenIdByMobileRequest(request, c.accessToken))
+    result, err := c.requestApi(newGetOpenIdByMobileRequest(request, c.accessToken))
+
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
+func (c *Client) UsersWeixinFollower(request map[string]interface{}) (*gjson.Result, error) {
+    result, err := c.requestApi(newUsersWeixinFollowerRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err

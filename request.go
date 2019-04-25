@@ -11,7 +11,7 @@ type Request struct {
     JsonData []byte
 }
 
-func NewMethod(name string, version string, accessToken string, request interface{}) *Request {
+func newMethod(name string, version string, accessToken string, request interface{}) *Request {
 
     method := &Request{
         Name: name,
@@ -27,8 +27,8 @@ func NewMethod(name string, version string, accessToken string, request interfac
     return method
 }
 
-func NewPointDecreaseRequest(request map[string]interface{}, accessToken string) *Request {
-    return NewMethod(
+func newPointDecreaseRequest(request map[string]interface{}, accessToken string) *Request {
+    return newMethod(
         "youzan.crm.customer.points.decrease",
         "3.1.0",
         accessToken,
@@ -36,8 +36,8 @@ func NewPointDecreaseRequest(request map[string]interface{}, accessToken string)
     )
 }
 
-func NewSalesmanAccountsRequest(request map[string]interface{}, accessToken string) *Request {
-    return NewMethod(
+func newSalesmanAccountsRequest(request map[string]interface{}, accessToken string) *Request {
+    return newMethod(
         "youzan.salesman.accounts.get",
         "3.0.0",
         accessToken,
@@ -45,8 +45,8 @@ func NewSalesmanAccountsRequest(request map[string]interface{}, accessToken stri
     )
 }
 
-func NewTradeRequest(request map[string]interface{}, accessToken string) *Request {
-    return NewMethod(
+func newTradeRequest(request map[string]interface{}, accessToken string) *Request {
+    return newMethod(
         "youzan.trade.get",
         "4.0.0",
         accessToken,
@@ -54,12 +54,21 @@ func NewTradeRequest(request map[string]interface{}, accessToken string) *Reques
     )
 }
 
-func NewGetOpenIdByMobileRequest(request map[string]interface{}, accessToken string) *Request {
+func newGetOpenIdByMobileRequest(request map[string]interface{}, accessToken string) *Request {
     if request["country_code"] == nil {
         request["country_code"] = "86"
     }
-    return NewMethod(
+    return newMethod(
         "youzan.user.weixin.openid.get",
+        "3.0.0",
+        accessToken,
+        request,
+    )
+}
+
+func newUsersWeixinFollowerRequest(request map[string]interface{}, accessToken string) *Request {
+    return newMethod(
+        "youzan.users.weixin.follower.get",
         "3.0.0",
         accessToken,
         request,
