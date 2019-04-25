@@ -1,4 +1,4 @@
-module youzango
+module github.com/zedisdog/youzango
 
 go 1.12
 

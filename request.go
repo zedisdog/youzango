@@ -1,7 +1,7 @@
 package youzango
 
 import (
-    "youzango/utils"
+    "github.com/zedisdog/youzango/utils"
 )
 
 type Request struct {
