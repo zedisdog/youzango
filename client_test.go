@@ -18,9 +18,9 @@ func TestClient_GetToken(t *testing.T) {
         convey.So(err, convey.ShouldBeNil)
         convey.So(token, convey.ShouldNotBeNil)
 
-        token, err = client.RefreshToken(NewRefreshTokenRequest(clientId, clientSecret, token.RefreshToken))
+        token, err = client.RefreshToken(NewRefreshTokenRequest(clientId, clientSecret, token.Get("refresh_token").String()))
         convey.So(err, convey.ShouldBeNil)
         convey.So(token, convey.ShouldNotBeNil)
-        convey.So(token.AccessToken, convey.ShouldNotBeEmpty)
+        convey.So(token.Get("access_token").String(), convey.ShouldNotBeEmpty)
     })
 }

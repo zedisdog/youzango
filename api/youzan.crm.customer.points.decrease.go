@@ -21,16 +21,6 @@ type PointDecreaseRequest struct {
     Reason string `json:"reason"`
 }
 
-type PointDecreaseResponse struct {
-    BaseResponse
-    Data PointDecreaseResult `json:"data"`
-}
-
-type PointDecreaseResult struct {
-    // 是否成功
-    IsSuccess string `json:"is_success"`
-}
-
 func NewPointDecreaseMethod(request *PointDecreaseRequest, accessToken string) *Method {
     method := NewMethod(accessToken)
     method.Name = "youzan.crm.customer.points.decrease"
