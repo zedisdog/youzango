@@ -4,16 +4,16 @@ import (
     "youzango/utils"
 )
 
-type Method struct {
+type Request struct {
     Name string
     Version string
     Query map[string]string
     JsonData []byte
 }
 
-func NewMethod(name string, version string, accessToken string, request interface{}) *Method {
+func NewMethod(name string, version string, accessToken string, request interface{}) *Request {
 
-    method := &Method{
+    method := &Request{
         Name: name,
         Version: version,
         Query: map[string]string{"access_token": accessToken},
@@ -27,7 +27,7 @@ func NewMethod(name string, version string, accessToken string, request interfac
     return method
 }
 
-func NewPointDecreaseMethod(request map[string]interface{}, accessToken string) *Method {
+func NewPointDecreaseRequest(request map[string]interface{}, accessToken string) *Request {
     return NewMethod(
         "youzan.crm.customer.points.decrease",
         "3.1.0",
@@ -36,7 +36,7 @@ func NewPointDecreaseMethod(request map[string]interface{}, accessToken string) 
     )
 }
 
-func NewSalesmanAccountsMethod(request map[string]interface{}, accessToken string) *Method {
+func NewSalesmanAccountsRequest(request map[string]interface{}, accessToken string) *Request {
     return NewMethod(
         "youzan.salesman.accounts.get",
         "3.0.0",
@@ -45,7 +45,7 @@ func NewSalesmanAccountsMethod(request map[string]interface{}, accessToken strin
     )
 }
 
-func NewTradeMethod(request map[string]interface{}, accessToken string) *Method {
+func NewTradeRequest(request map[string]interface{}, accessToken string) *Request {
     return NewMethod(
         "youzan.trade.get",
         "4.0.0",
@@ -54,7 +54,7 @@ func NewTradeMethod(request map[string]interface{}, accessToken string) *Method 
     )
 }
 
-func NewGetOpenIdByMobileMethod(request map[string]interface{}, accessToken string) *Method  {
+func NewGetOpenIdByMobileRequest(request map[string]interface{}, accessToken string) *Request {
     if request["country_code"] == nil {
         request["country_code"] = "86"
     }

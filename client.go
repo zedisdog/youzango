@@ -68,7 +68,7 @@ func (c *Client) RefreshToken(params map[string]string) (*gjson.Result, error) {
 }
 
 func (c *Client) Trade(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewTradeMethod(request, c.accessToken))
+    result, err := c.requestApi(NewTradeRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -78,7 +78,7 @@ func (c *Client) Trade(request map[string]interface{}) (*gjson.Result, error) {
 }
 
 func (c *Client) DecreasePoint(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewPointDecreaseMethod(request, c.accessToken))
+    result, err := c.requestApi(NewPointDecreaseRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -88,7 +88,7 @@ func (c *Client) DecreasePoint(request map[string]interface{}) (*gjson.Result, e
 }
 
 func (c *Client) SalesmanAccounts(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewSalesmanAccountsMethod(request, c.accessToken))
+    result, err := c.requestApi(NewSalesmanAccountsRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -98,7 +98,7 @@ func (c *Client) SalesmanAccounts(request map[string]interface{}) (*gjson.Result
 }
 
 func (c *Client) GetOpenIdByMobile(request map[string]interface{}) (*gjson.Result, error) {
-    result, err := c.requestApi(NewGetOpenIdByMobileMethod(request, c.accessToken))
+    result, err := c.requestApi(NewGetOpenIdByMobileRequest(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -107,7 +107,7 @@ func (c *Client) GetOpenIdByMobile(request map[string]interface{}) (*gjson.Resul
     return result, nil
 }
 
-func (c *Client) requestApi(method *Method) (*gjson.Result, error) {
+func (c *Client) requestApi(method *Request) (*gjson.Result, error) {
     response,err := request(normalApi, method.Name, method.Version, method.Query, method.JsonData, c.IsLog)
 
     if err != nil {
