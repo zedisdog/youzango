@@ -5,7 +5,6 @@ import (
     "fmt"
     "github.com/json-iterator/go"
     "github.com/tidwall/gjson"
-    "youzango/api"
 )
 
 type Client struct {
@@ -22,10 +21,10 @@ func (c *Client) SetRefreshToken(refreshToken string) {
     c.refreshToken = refreshToken
 }
 
-func (c *Client) GetToken(tokenRequest *TokenRequest) (*gjson.Result, error) {
+func (c *Client) GetToken(params map[string]string) (*gjson.Result, error) {
     var response *gjson.Result
     json := jsoniter.ConfigCompatibleWithStandardLibrary
-    jsonData, err := json.Marshal(tokenRequest)
+    jsonData, err := json.Marshal(params)
 
     if err != nil {
         return nil, err
@@ -45,10 +44,10 @@ func (c *Client) GetToken(tokenRequest *TokenRequest) (*gjson.Result, error) {
     return &result, nil
 }
 
-func (c *Client) RefreshToken(refreshTokenRequest *RefreshTokenRequest) (*gjson.Result, error) {
+func (c *Client) RefreshToken(params map[string]string) (*gjson.Result, error) {
     var response *gjson.Result
     json := jsoniter.ConfigCompatibleWithStandardLibrary
-    jsonData, err := json.Marshal(refreshTokenRequest)
+    jsonData, err := json.Marshal(params)
 
     if err != nil {
         return nil, err
@@ -68,8 +67,8 @@ func (c *Client) RefreshToken(refreshTokenRequest *RefreshTokenRequest) (*gjson.
     return &result, nil
 }
 
-func (c *Client) Trade(request *api.TradeRequest) (*gjson.Result, error) {
-    result, err := c.requestApi(api.NewTradeMethod(request, c.accessToken))
+func (c *Client) Trade(request map[string]interface{}) (*gjson.Result, error) {
+    result, err := c.requestApi(NewTradeMethod(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -78,8 +77,8 @@ func (c *Client) Trade(request *api.TradeRequest) (*gjson.Result, error) {
     return result, nil
 }
 
-func (c *Client) DecreasePoint(request *api.PointDecreaseRequest) (*gjson.Result, error) {
-    result, err := c.requestApi(api.NewPointDecreaseMethod(request, c.accessToken))
+func (c *Client) DecreasePoint(request map[string]interface{}) (*gjson.Result, error) {
+    result, err := c.requestApi(NewPointDecreaseMethod(request, c.accessToken))
 
     if err != nil {
         return nil, err
@@ -88,7 +87,27 @@ func (c *Client) DecreasePoint(request *api.PointDecreaseRequest) (*gjson.Result
     return result, nil
 }
 
-func (c *Client) requestApi(method *api.Method) (*gjson.Result, error) {
+func (c *Client) SalesmanAccounts(request map[string]interface{}) (*gjson.Result, error) {
+    result, err := c.requestApi(NewSalesmanAccountsMethod(request, c.accessToken))
+
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
+func (c *Client) GetOpenIdByMobile(request map[string]interface{}) (*gjson.Result, error) {
+    result, err := c.requestApi(NewGetOpenIdByMobileMethod(request, c.accessToken))
+
+    if err != nil {
+        return nil, err
+    }
+
+    return result, nil
+}
+
+func (c *Client) requestApi(method *Method) (*gjson.Result, error) {
     response,err := request(normalApi, method.Name, method.Version, method.Query, method.JsonData, c.IsLog)
 
     if err != nil {
