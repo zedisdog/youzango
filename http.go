@@ -18,11 +18,12 @@ func httpPost(url string, jsonData []byte) ([]byte, error) {
         "application/json",
         bytes.NewReader(jsonData),
     )
-    defer rsp.Body.Close()
 
     if err != nil {
         return []byte{}, err
     }
+
+    defer rsp.Body.Close()
 
     result, err := ioutil.ReadAll(rsp.Body)
 
@@ -38,7 +39,7 @@ func request(baseUrl string, method string, version string, query map[string]str
     var err error
     if baseUrl == tokenApi {
         if isLog {
-            log.Println("+request url:", baseUrl, "data:", jsonData)
+            log.Println("+request url:", baseUrl, "data:", string(jsonData))
         }
         rsp, err = httpPost(baseUrl, jsonData)
         if err != nil {
@@ -53,10 +54,11 @@ func request(baseUrl string, method string, version string, query map[string]str
         }
 
         if isLog {
-            log.Println("+request url:", url, "data:", jsonData)
+            log.Println("+request url:", url, "data:", string(jsonData))
         }
         rsp, err = httpPost(url, jsonData)
         if err != nil {
+            log.Println("--response error:", err)
             return nil, err
         }
     }

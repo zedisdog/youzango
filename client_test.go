@@ -2,6 +2,7 @@ package youzango
 
 import (
     "github.com/smartystreets/goconvey/convey"
+    "log"
     "testing"
 )
 
@@ -32,5 +33,6 @@ func TestClient_GetToken(t *testing.T) {
         convey.So(err, convey.ShouldBeNil)
         convey.So(token, convey.ShouldNotBeNil)
         convey.So(token.Get("access_token").String(), convey.ShouldNotBeEmpty)
+        log.Printf(token.Get("access_token").String())
     })
 }
