@@ -2,22 +2,33 @@ package youzango
 
 import (
     "bytes"
+    "crypto/tls"
     "github.com/pasztorpisti/qs"
     "github.com/tidwall/gjson"
     "io/ioutil"
     "log"
     "net/http"
+    "time"
 )
 
 const tokenApi string = "https://open.youzanyun.com/auth/token"
 const normalApi string = "https://open.youzanyun.com/api"
 
 func httpPost(url string, jsonData []byte) ([]byte, error) {
-    rsp, err := http.Post(
-        url,
-        "application/json",
-        bytes.NewReader(jsonData),
-    )
+    tr := &http.Transport{    //解决x509: certificate signed by unknown authority
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+    }
+    client := &http.Client{
+        Timeout:   15 * time.Second,
+        Transport: tr,    //解决x509: certificate signed by unknown authority
+    }
+    req, err := http.NewRequest("POST", url, bytes.NewReader(jsonData))
+    if err != nil {
+        log.Println(err)
+        return []byte{}, err
+    }
+    req.Header.Add("Content-Type", "application/json")
+    rsp, err := client.Do(req)
 
     if err != nil {
         return []byte{}, err
